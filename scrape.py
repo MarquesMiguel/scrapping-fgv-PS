@@ -85,6 +85,13 @@ def build_df(books: List[Dict]) -> pd.DataFrame:
     df_all_books = pd.DataFrame(books).reset_index(drop=True)
     df_all_books["price"] = df_all_books["price"].str.replace('.',',', regex=False)
 
+    df_all_books = df_all_books.rename(columns={
+        "name": "nome",
+        "price": "preco",
+        "book_url": "url"
+    })
+
+
     return df_all_books
 
 

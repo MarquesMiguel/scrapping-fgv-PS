@@ -86,3 +86,17 @@ def build_df(books: List[Dict]) -> pd.DataFrame:
     df_all_books["price"] = df_all_books["price"].str.replace('.',',', regex=False)
 
     return df_all_books
+
+
+def export_excel(df: pd.DataFrame, filename: str = "itens.xlsx") -> None:
+    """
+    Export the data to excel
+
+    Parameters:
+        df(pd.DataFrame): the DataFrame from the build_df function, with the books info
+    
+        filename(str): the choosen name of the file
+
+    """
+
+    df.to_excel(filename, index = False)

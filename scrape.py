@@ -124,7 +124,7 @@ def scrape_all_books(initial_url: str ='https://books.toscrape.com') -> pd.DataF
         html = fetch_html(url=url)
         data, next_url = get_data(html=html, url=url)
         all_books.extend(data)
-        print(f"colleting data from: {next_url} . . .")                     #print page checked
+        print(f"collecting data from: {next_url} . . .")                     #print page checked
         url = urljoin(url, next_url) if next_url else None                  #handles the url concatenation
 
 

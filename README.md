@@ -32,13 +32,21 @@ Coleta dados sobre os livros listados em [books.toscrape.com](https://books.tosc
 ## Estrutura
 
 scrape_all_books()  (orquestradora)
+
 │
+
 ├── fetch_html(url)         → busca o HTML bruto da pagina
+
 ├── get_data(html, url)     → retorna os dados sobre o livro em formato de dict + a url da proxima pagina
+
 │                              
+
 ├── build_df(books)         → constroi o DataFrame e normaliza os dados
+
 │                              
+
 └── export_excel(df)        → exporta o resultado final para itens.xlsx
+
 
 
 

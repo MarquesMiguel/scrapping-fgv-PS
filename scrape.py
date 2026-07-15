@@ -70,16 +70,19 @@ def get_data(html: str, url: str) -> Tuple[List[Dict], Optional[str]]:
         return data, None
     
 
+def build_df(books: List[Dict]) -> pd.DataFrame:
+    """
+    Return a DataFrame with all books info normalized
 
-def build_df(books: List) -> pd.DataFrame: 
-  """
-  Return 
-  """
+    Parameters:
+        books(List[Dict]): the list with dicts about the books
+    
+    Returns:
+        df_all_books(pd.DataFrame): a DataFrame with the columns (name, price, url)
+  
+    """
 
+    df_all_books = pd.DataFrame(books).reset_index(drop=True)
+    df_all_books["price"] = df_all_books["price"].str.replace('.',',', regex=False)
 
-  df_all_books = pd.DataFrame(books).reset_index(drop=True)
-
-  df_all_books["price"] = df_all_books["price"].str.replace('.',',', regex=False)
-
-  return df_all_books
-
+    return df_all_books

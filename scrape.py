@@ -100,3 +100,41 @@ def export_excel(df: pd.DataFrame, filename: str = "itens.xlsx") -> None:
     """
 
     df.to_excel(filename, index = False)
+
+
+
+def scrape_all_books(initial_url: str ='https://books.toscrape.com') -> pd.DataFrame:
+    """
+    Commands the entire pipeline: fetches all the raw html pages from the site with, get the data from the raw html
+    and turns into a list with dicts that are turn into a DataFrame with the normalized data, and finally Extract to a Excel
+    file.
+
+    Parameters:
+        initial_url(str): the root page from the site, will be the first to be scrapped and will be used initialize the loop
+    
+    Returns:
+        df_all_books(pd.DataFrame): the DataFrame that will be Extracted to the Excel File
+        
+    """
+
+    url = initial_url
+    all_books = []
+
+    while url:
+        html = fetch_html(url=url)
+        data, next_url = get_data(html=html, url=url)
+        all_books.extend(data)
+        print(f"colleting data from: {next_url} . . .")                     #print page checked
+        url = urljoin(url, next_url) if next_url else None                  #handles the url concatenation
+
+
+    df_all_books = build_df(all_books)
+
+    #export DF to a Excel File
+    export_excel(df_all_books)
+
+    return df_all_books
+
+
+if __name__ == "__main__":
+    scrape_all_books()
